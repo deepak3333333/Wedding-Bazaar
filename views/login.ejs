@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeddingBazaar - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            color: #ff4081;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e1e1e1;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .input-group input:focus {
+            border-color: #ff4081;
+            box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.1);
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            color: #666;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #ff4081, #9c27b0);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-password a {
+            color: #666;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            color: #ff4081;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #ff4081;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4081;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .input-error {
+            animation: shake 0.3s ease;
+            border-color: #ff4081 !important;
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 1.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('./components/navbar') %>
+
+    <div class="main-content">
+        <div class="login-container">
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Login to WeddingBazaar</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <i class="fas fa-envelope"></i>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <i class="fas fa-eye password-toggle"></i>
+                    <div class="error-message">Please enter your password</div>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <div class="register-link">
+                Don't have an account? <a href="/user/signup">Register here</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./components/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const passwordToggle = document.querySelector('.password-toggle');
+            
+            // Toggle password visibility
+            passwordToggle.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+
+                // Email validation
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    showError(email, 'Please enter a valid email address');
+                    isValid = false;
+                } else {
+                    hideError(email);
+                }
+
+                // Password validation
+                const password = document.getElementById('password');
+                if (!password.value) {
+                    showError(password, 'Please enter your password');
+                    isValid = false;
+                } else {
+                    hideError(password);
+                }
+
+                if (isValid) {
+                    // Here you would typically send the login request to your server
+                    console.log('Login form submitted successfully');
+                    alert('Login successful!');
+                    form.reset();
+                }
+            });
+
+            function showError(input, message) {
+                const errorDiv = input.nextElementSibling.nextElementSibling;
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = message;
+                input.classList.add('input-error');
+            }
+
+            function hideError(input) {
+                const errorDiv = input.nextElementSibling.nextElementSibling;
+                errorDiv.style.display = 'none';
+                input.classList.remove('input-error');
+            }
+        });
+    </script>
+</body>
+</html>
