@@ -17,11 +17,18 @@ async function handleUserLoginGet(req,res) {
     
 }
 async function handleUserLoginPost(req,res) {
+    const loginfailed=false;
    const {email,password}=req.body
-   const user=await User.matchedPassword(email,password)
-   if(user) {
-       return res.redirect("/")
+  
+   try {
+    const token=await User.matchedPasswordGenrateToken(email,password)
+     return res.cookie("token", token).redirect("/");
+    
+   } catch (error) {
+    return res.render("login",{error:"Incoorect Email or Password"})
+    
    }
+  
    
 
     

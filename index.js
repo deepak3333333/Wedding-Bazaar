@@ -2,6 +2,7 @@ const express = require("express");
 
 const app = express();
 const port = 45;
+
 const mongoose = require("mongoose"); // Import mongoose only once
 
 // Connect to MongoDB
@@ -14,16 +15,24 @@ mongoose.connect("mongodb://localhost:27017/WeddingBazaar")
   });
 
 const userRouter = require("./routers/user");
-
+const cookieParser = require("cookie-parser");
+const checkAuthenticationCookie = require("./middleware/authentication");
+app.use(cookieParser());
+app.use(checkAuthenticationCookie("token"));
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: true }));
+
 
 // Set up routes
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
-  res.render("home");
+  
+ 
+  console.log("This is ",req.user);
+  
+  res.render("home", { user:req.user });
 });
 
 // Start server

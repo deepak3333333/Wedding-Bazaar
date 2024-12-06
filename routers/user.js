@@ -13,5 +13,9 @@ router.post("/signup",handleUserSignupPost)
 router.get("/login",handleUserLoginGet)
 router.post("/login",handleUserLoginPost)
 
+router.get("/logout",(req,res)=>{
+    res.clearCookie("token").redirect("/")
+})
+
 
 module.exports=router

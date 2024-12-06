@@ -168,6 +168,16 @@
 </head>
 <body>
     <%- include('./components/navbar') %>
+
+
+    <% if (locals.error) { %>
+        <div style="background-color: #ffe6e6; border: 1px solid #ff4d4d; border-radius: 8px; padding: 16px; max-width: 400px; margin: 20px auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); font-family: Arial, sans-serif;">
+          <div style="text-align: center; font-weight: bold; color: #ff4d4d; font-size: 18px;">
+            <%= locals.error %>
+          </div>
+        </div>
+      <% } %>
+      
     <div class="main-content">
         <div class="registration-container">
             <div class="form-header">

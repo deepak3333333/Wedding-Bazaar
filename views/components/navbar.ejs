@@ -214,9 +214,79 @@
             background: rgba(255, 255, 255, 0.25);
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
         }
+        /* Profile Link */
+.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    margin: 0 10px;
+}
+
+.profile-link .profile-image {
+    width: 40px;          /* Set width */
+    height: 40px;         /* Set height */
+    border-radius: 50%;   /* Circular image */
+    margin-right: 8px;    /* Space between image and text */
+    border: 2px solid #ccc; /* Optional border for styling */
+}
+
+.profile-link span {
+    font-size: 16px;      /* Adjust font size */
+    font-weight: bold;    /* Bold text */
+}
+
+/* Logout Link */
+.logout-link {
+    text-decoration: none;
+    color: #f00;          /* Red color for logout */
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logout-link i {
+    margin-right: 5px;    /* Space between icon and text */
+}
+
+/* Login and Signup Links */
+.login-link, .signup-link {
+    text-decoration: none;
+    color: #007bff;       /* Blue color for login/signup */
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.login-link i, .signup-link i {
+    margin-right: 5px;    /* Space between icon and text */
+}
+
+/* Hover Effects */
+a:hover {
+    opacity: 0.8;         /* Slight dim on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+/* Style the welcome text */
+.welcome-text {
+    font-size: 2rem;               /* Bigger font size */
+    font-weight: bold;             /* Bold text */
+    color: #FF6347;                /* Sexy color (Tomato red) */
+    transition: color 0.3s ease, transform 0.3s ease;  /* Smooth color and transform transition */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);    /* Subtle shadow for the text */
+}
+
+/* Add hover effect */
+.welcome-text:hover {
+    color: #FF1493;                /* Sexy hover color (Deep Pink) */
+    transform: scale(1.1);          /* Slight zoom on hover */
+}
+
+
     </style>
 </head>
 <body>
+
     <nav>
         <div class="nav-container">
             <div class="logo-container">
@@ -227,23 +297,44 @@
                 <i class="fas fa-heart heart-icon"></i>
                 <div class="ring-icon"></div>
             </div>
+            
+<% if (locals.user) { %>
+    <h1 class="welcome-text">Welcome, <%= user.name.charAt(0).toUpperCase() + user.name.slice(1) %></h1>
+
+ 
+<% } %>
+
             <div id="navLinks">
                 <a href="/">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="#login">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Login</span>
-                </a>
-                <a href="/user/signup">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Sign Up</span>
-                </a>
-                <a href="#profile">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Profile</span>
-                </a>
+
+
+                
+                 
+                <% if (locals.user) { %>
+                    <!-- Show Profile and Logout -->
+                    <a href="#profile" class="profile-link">
+                        <img src="<%= user.profileImageURL %>" alt="Profile Image" class="profile-image">
+                        <span>Profile</span>
+                    </a>
+                    <a href="/user/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                <% } else { %>
+                    <!-- Show Signup and Login -->
+                    <a href="/user/login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </a>
+                    <a href="/user/signup">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Sign Up</span>
+                    </a>
+                <% } %>
+                
             </div>
         </div>
     </nav>
